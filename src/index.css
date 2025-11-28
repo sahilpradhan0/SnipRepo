@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Default (light mode) bullets */
+  .swiper-pagination-bullet {
+    @apply w-6 h-6 bg-gray-400 opacity-70 transition-all duration-200;
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply bg-blue-600 opacity-100 scale-125;
+  }
+
+  /* 🌙 Dark mode overrides */
+  .dark .swiper-pagination-bullet {
+    @apply bg-gray-500 opacity-60;
+  }
+
+  .dark .swiper-pagination-bullet-active {
+    @apply bg-blue-400 opacity-100 scale-125;
+  }
+}
+@layer utilities {
+  /* Width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  /* Thumb */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  /* Thumb Hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+/* * {
+  outline: 1px solid red !important;
+  overscroll-behavior: auto !important;
+  touch-action: auto !important;
+} */
+
+.monaco-editor,
+.monaco-editor .overflow-guard {
+  pointer-events: auto !important;
+  overscroll-behavior: contain !important;
+}
+.modal-scroll {
+  overscroll-behavior: contain !important;
+  overflow-y: auto !important;
+}
