@@ -114,7 +114,7 @@ export function Pricing({ onGetStarted }: PricingProps) {
                         </button>
                     </div>
                 </div>
-                <div className='max-w-4xl mx-auto w-full px-4 mb-14'>
+                <div className='max-w-4xl mx-auto w-full sm:px-4 mb-14'>
                     <Swiper
                         spaceBetween={30}
                         className='pb-16'
