@@ -53,7 +53,7 @@ export function SnippetCard({ snippet, onEdit, onDelete, onToggleFavorite, isSel
   return (
     <div
       onClick={handleClick}
-      className={`group/card bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer border flex flex-col relative ${isSelected ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-200 dark:border-gray-700'} ${isSelectionModeActive ? 'hover:border-blue-400' : ''}`}
+      className={`group/card bg-white dark:bg-gray-800  rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer border flex flex-col relative ${isSelected ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-200 dark:border-gray-700'} ${isSelectionModeActive ? 'hover:border-blue-400' : ''}`}
     >
       <div className="p-6 flex-grow flex flex-col">
         <div className="flex items-start justify-between mb-3 flex-grow">
@@ -110,11 +110,11 @@ export function SnippetCard({ snippet, onEdit, onDelete, onToggleFavorite, isSel
           </div>
         )}
 
-        <div className="rounded-lg mb-4 overflow-hidden line-clamp-4">
+        <div className="rounded-lg mb-4 overflow-hidden h-[120px] relative">
           <SyntaxHighlighter
             language={snippet.language?.toLowerCase() || 'plaintext'}
             style={vscDarkPlus}
-            showLineNumbers={false}
+            showLineNumbers={true}
             customStyle={{ margin: 0, padding: '1rem', fontSize: '0.75rem' }}
             codeTagProps={{ style: { fontFamily: 'inherit' } }}
           >
