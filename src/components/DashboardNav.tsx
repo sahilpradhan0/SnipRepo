@@ -118,13 +118,13 @@ export function DashboardNav({
                                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">Upgrade Plan</span>
                             </div>
                             <div className="relative group">
-                                <button onClick={onShowImportExport} disabled={isFreeUser || hideImportExport} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                <button onClick={onShowImportExport} disabled={hideImportExport} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
                                     <Upload className="w-5 h-5" />
                                 </button>
-                                <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">{isFreeUser ? proFeatureTooltip : 'Import/Export'}</span>
+                                <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">Import/Export</span>
                             </div>
                             <div className="relative group">
-                                <button onClick={onShowAnalytics} disabled={isFreeUser} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                <button onClick={() => nav("/dashboard/analytics")} disabled={isFreeUser} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
                                     <BarChart3 className="w-5 h-5" />
                                 </button>
                                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">{isFreeUser ? proFeatureTooltip : 'Analytics'}</span>
@@ -168,7 +168,7 @@ export function DashboardNav({
                             <button onClick={() => { setShowPricing(true); setIsMenuOpen(false); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <Gem className="w-5 h-5 text-blue-500" /> Upgrade Plan
                             </button>
-                            <button onClick={() => { onShowImportExport(); setIsMenuOpen(false); }} disabled={isFreeUser || hideImportExport} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <button onClick={() => { onShowImportExport(); setIsMenuOpen(false); }} disabled={hideImportExport} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <Upload className="w-5 h-5" /> Import/Export
                             </button>
 
