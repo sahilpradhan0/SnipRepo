@@ -13,7 +13,6 @@ const proExclusiveFeatures = [
     'Usage analytics dashboard',
     'Version history with diff view',
     'Snippet embeds (iFrame, Markdown, HTML)',
-    'Import/Export (JSON, Markdown)',
     'AI-powered features including code summarization and tag suggestions',
 ];
 
@@ -22,6 +21,7 @@ const freePlanBaseFeatures = [
     'Unlimited folders and tags',
     'Full-text snippet search',
     'Multi-language support (15+ programming languages)',
+    'Import/Export (JSON, Markdown)',
     'Secure cloud storage with row-level security',
 ];
 
