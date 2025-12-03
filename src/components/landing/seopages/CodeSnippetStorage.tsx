@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Check, Lock, Tag, Cloud, Zap, User, ChevronDown } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import LandingLayout from "./LandingLayout";
+import LandingLayout from "../LandingLayout";
 import { Link, useNavigate } from "react-router-dom";
 
 const faqs = [

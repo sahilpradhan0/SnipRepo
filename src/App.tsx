@@ -22,8 +22,13 @@ import posthog from 'posthog-js';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Analytics } from './components/analytics/Analytics';
-import { CodeSnippetManager } from './components/landing/CodeSnippetManager';
-import { CodeSnippetStorage } from './components/landing/CodeSnippetStorage';
+import { CodeSnippetManager } from './components/landing/seopages/CodeSnippetManager';
+import { CodeSnippetStorage } from './components/landing/seopages/CodeSnippetStorage';
+import BestCodeSnippetManager from './components/landing/seopages/BestCodeSnippetManager';
+import AICodeSnippetSearch from './components/landing/seopages/AICodeSnippetSearch';
+import SnipRepoVsGist from './components/landing/seopages/SnipRepoVsGist';
+import SnipRepoVsNotion from './components/landing/seopages/SnipRepoVsNotion';
+import CodeSnippetManagement from './components/landing/seopages/CodeSnippetManagement';
 
 function AppContent() {
   const { user, loading, isRecoveringPassword } = useAuth();
@@ -64,6 +69,11 @@ function AppContent() {
       <Route path="/refund-cancellation" element={<RefundCancellation />} />
       <Route path="/code-snippet-manager" element={<CodeSnippetManager />} />
       <Route path="/code-snippet-storage" element={<CodeSnippetStorage />} />
+      <Route path="/best-code-snippet-manager" element={<BestCodeSnippetManager />} />
+      <Route path="/ai-code-snippet-search" element={<AICodeSnippetSearch />} />
+      <Route path="/sniprepo-vs-gist" element={<SnipRepoVsGist />} />
+      <Route path="/sniprepo-vs-notion" element={<SnipRepoVsNotion />} />
+      <Route path="/code-snippet-management" element={<CodeSnippetManagement />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
