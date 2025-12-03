@@ -22,6 +22,8 @@ import posthog from 'posthog-js';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Analytics } from './components/analytics/Analytics';
+import { CodeSnippetManager } from './components/landing/CodeSnippetManager';
+import { CodeSnippetStorage } from './components/landing/CodeSnippetStorage';
 
 function AppContent() {
   const { user, loading, isRecoveringPassword } = useAuth();
@@ -60,6 +62,8 @@ function AppContent() {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-of-service" element={<TermsOfService />} />
       <Route path="/refund-cancellation" element={<RefundCancellation />} />
+      <Route path="/code-snippet-manager" element={<CodeSnippetManager />} />
+      <Route path="/code-snippet-storage" element={<CodeSnippetStorage />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
