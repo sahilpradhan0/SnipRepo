@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, History, RotateCcw, Clock } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import { supabase } from '../../lib/supabase';
 
 interface Version {
@@ -54,6 +55,7 @@ export function VersionHistory({ snippetId, currentCode, onClose, onRestore }: V
     if (!versionToRestore) return;
 
     await onRestore(versionToRestore.code);
+    toast.success(`Successfully restored to Version ${versionToRestore.version_number}.`);
     setShowConfirmModal(false);
     setVersionToRestore(null);
     onClose(); // This closes the main VersionHistory modal

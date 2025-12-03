@@ -39,6 +39,9 @@ export function SnippetDetail({ snippet: initialSnippet, onClose, onEdit, onDele
 
   const isProUser = user?.app_metadata?.is_pro ?? false;
 
+  // const isPro = user?.app_metadata?.is_pro ?? false;
+  // const isProUser = !isPro;
+
   // This effect is for the standalone page version
   useEffect(() => {
     if (id && !initialSnippet) {

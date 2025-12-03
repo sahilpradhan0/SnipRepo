@@ -21,6 +21,7 @@ import PageNotFound from './components/landing/PageNotFound';
 import posthog from 'posthog-js';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Analytics } from './components/analytics/Analytics';
 
 function AppContent() {
   const { user, loading, isRecoveringPassword } = useAuth();
@@ -52,6 +53,7 @@ function AppContent() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/snippet/:id" element={<SnippetDetail />} />
         <Route path="/dashboard/snippets" element={<AllSnippetsPage />} />
+        <Route path="/dashboard/analytics" element={<Analytics />} />
       </Route>
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />

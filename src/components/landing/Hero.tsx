@@ -12,13 +12,16 @@ export function Hero({ onGetStarted }: HeroProps) {
                     <div className='px-2'>
                         <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
                             <Zap className="w-4 h-4" />
-                            Your Personal Code Library
+                            Built for Developers Who Reuse Code
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-6 leading-tight">
-                            Organize Your Code Snippets Like a Pro
+                            Never Lose a Code Snippet Again
                         </h1>
-                        <p className="text-md sm:text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                            Stop losing valuable code snippets. SnipRepo helps developers save, organize, and find their code faster with powerful search, smart tagging, and beautiful organization.
+                        <p className="text-md sm:text-lg text-gray-600 dark:text-gray-400 mb-2 leading-relaxed">
+                            SnipRepo is your smart, fast, AI-ready code library — save, search, and reuse your snippets in seconds.
+                        </p>
+                        <p className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                            Stop digging through old projects or notes. SnipRepo keeps everything clean, searchable, and organized.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <button

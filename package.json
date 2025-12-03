@@ -18,10 +18,12 @@
     "monaco-editor": "^0.50.0",
     "posthog-js": "^1.298.1",
     "react": "^18.3.1",
+    "react-calendar-heatmap": "^1.10.0",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.9.5",
     "react-syntax-highlighter": "^16.1.0",
+    "recharts": "^3.5.1",
     "swiper": "^12.0.3"
   },
   "devDependencies": {
