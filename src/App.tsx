@@ -90,8 +90,8 @@ function App() {
             toastOptions={{
               duration: 5000,
             }} />
-          <ReactLenis root />
           <AppContent />
+          <ReactLenis root />
         </AuthProvider>
       </ThemeProvider>
     </SubscriptionProvider>
