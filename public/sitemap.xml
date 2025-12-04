@@ -5,15 +5,12 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-
-<!-- Homepage -->
   <url>
     <loc>https://www.sniprepo.com/</loc>
     <lastmod>2025-12-04</lastmod>
     <priority>1.00</priority>
   </url>
 
-  <!-- SEO Pages -->
   <url>
     <loc>https://www.sniprepo.com/code-snippet-manager</loc>
     <lastmod>2025-12-04</lastmod>
@@ -56,7 +53,6 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- Main Site Info Pages -->
   <url>
     <loc>https://www.sniprepo.com/about</loc>
     <lastmod>2025-12-04</lastmod>
@@ -86,7 +82,5 @@
     <lastmod>2025-12-04</lastmod>
     <priority>0.50</priority>
   </url>
-
-
 
 </urlset>
