@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import LandingLayout from '../LandingLayout';
-// import ScreenshotGenerator from './ScreenshotGenerator'; // your UI component
 import { Check, ChevronDown } from 'lucide-react';
 import ScreenshotGenerator from '../ScreenshotGenerator';
-import PostDownloadModal from '../PostDownloadModal';
 import { useNavigate } from 'react-router-dom';
-
+import { track } from '../../../lib/api/PostHogAnalytics';
 const faqs = [
   {
     question: "What is a code snippet screenshot generator?",
@@ -29,10 +27,17 @@ const faqs = [
 
 export default function ScreenshotGeneratorPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const toggleFaq = (index) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      track("Viewed Screenshot Generator Page");
+    });
+
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   return (
     <LandingLayout>

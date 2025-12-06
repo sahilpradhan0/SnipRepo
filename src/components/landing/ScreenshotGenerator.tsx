@@ -12,7 +12,7 @@ import html from "prettier/plugins/html";
 import css from "prettier/plugins/postcss";
 import markdown from "prettier/plugins/markdown";
 import typescript from "prettier/plugins/typescript";
-
+import {track} from '../../lib/api/PostHogAnalytics';
 // --- Font Imports ---
 import "@fontsource/fira-code";
 import "@fontsource/jetbrains-mono";
@@ -142,6 +142,7 @@ export default function ScreenshotGenerator() {
             link.download = `${filename || 'sniprepo-screenshot'}.png`;
             link.href = dataUrl;
             link.click();
+            track("Screenshot Downloaded", { filename: link.download });
             setShowAfterDownloadModal(true);
         } catch (err) {
             console.error('Oops, something went wrong!', err);
@@ -179,6 +180,7 @@ export default function ScreenshotGenerator() {
 
             if (blob) {
                 await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                track("Screenshot Copied to Clipboard");
                 // toast.success('Image copied to clipboard!');
             }
         } catch (err) {
@@ -196,8 +198,10 @@ export default function ScreenshotGenerator() {
 
         if (platform === 'x') {
             shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&hashtags=coding,developers,programming`;
+            track("Screenshot Shared on X");
         } else if (platform === 'linkedin') {
             shareUrl = `https://www.linkedin.com/sharing/share-offsite/?text=${encodeURIComponent(text)}&hashtags=coding,developers,programming`;
+            track("Screenshot Shared on LinkedIn");
         }
 
         if (shareUrl) {

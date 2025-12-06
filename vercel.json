@@ -16,10 +16,15 @@
       ]
     },
     {
-      "key": "Cache-Control",
-      "value": "no-store"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     },
-    { 
+    {
       "source": "/robots.txt",
       "headers": [
         {
