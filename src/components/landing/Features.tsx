@@ -5,49 +5,56 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const features = [
-    {
-        icon: Search,
-        iconBg: 'bg-blue-100 dark:bg-blue-900/30',
-        iconColor: 'text-blue-600 dark:text-blue-400',
-        title: 'Lightning-Fast Code Snippet Search',
-        description: 'Find any code snippet in milliseconds with full-text search across titles, descriptions, and code content. Never lose a snippet again.'
-    },
-    {
-        icon: Folder,
-        iconBg: 'bg-green-100 dark:bg-green-900/30',
-        iconColor: 'text-green-600 dark:text-green-400',
-        title: 'Smart Snippet Organization',
-        description: 'Create custom folders with color coding to organize code snippets by project, language, or any system that works for you.'
-    },
-    {
-        icon: Tag,
-        iconBg: 'bg-purple-100 dark:bg-purple-900/30',
-        iconColor: 'text-purple-600 dark:text-purple-400',
-        title: 'Flexible Tagging for Code Snippets',
-        description: 'Tag snippets with multiple labels for easy filtering and discovery. Perfect for managing cross-project patterns and reusable code.'
-    },
-    {
-        icon: Code2,
-        iconBg: 'bg-yellow-100 dark:bg-yellow-900/30',
-        iconColor: 'text-yellow-600 dark:text-yellow-400',
-        title: 'Multi-Language Snippet Support',
-        description: 'Supports 15+ programming languages including JavaScript, Python, Java, C++, and more. Keep all your code snippets in one place.'
-    },
-    {
-        icon: TrendingUp,
-        iconBg: 'bg-red-100 dark:bg-red-900/30',
-        iconColor: 'text-red-600 dark:text-red-400',
-        title: 'Detailed Usage Analytics',
-        description: 'Track your coding patterns with insights on most-used languages, favorite snippets, and activity trends over time to optimize workflow.'
-    },
-    {
-        icon: Lock,
-        iconBg: 'bg-teal-100 dark:bg-teal-900/30',
-        iconColor: 'text-teal-600 dark:text-teal-400',
-        title: 'Secure & Private Code Storage',
-        description: 'Your code snippets are encrypted and protected with industry-standard security. Row-level security ensures complete data privacy.'
-    }
+  {
+    icon: Search,
+    iconBg: 'bg-blue-100 dark:bg-blue-900/30',
+    iconColor: 'text-blue-600 dark:text-blue-400',
+    title: 'Find Code Instantly',
+    description:
+      'Search across every saved snippet (titles, description, AND code) — no digging through repos, old projects, or Slack chats.'
+  },
+  {
+    icon: Folder,
+    iconBg: 'bg-green-100 dark:bg-green-900/30',
+    iconColor: 'text-green-600 dark:text-green-400',
+    title: 'Zero-Mess Organization',
+    description:
+      'Organize by projects, clients, languages, or frameworks. Colored folders help you visually find what matters quickly.'
+  },
+  {
+    icon: Tag,
+    iconBg: 'bg-purple-100 dark:bg-purple-900/30',
+    iconColor: 'text-purple-600 dark:text-purple-400',
+    title: 'Tag & Filter Like a Pro',
+    description:
+      'Attach tags like “auth”, “API”, “SQL”, “hooks”, etc., and instantly filter when you need something related.'
+  },
+  {
+    icon: Code2,
+    iconBg: 'bg-yellow-100 dark:bg-yellow-900/30',
+    iconColor: 'text-yellow-600 dark:text-yellow-400',
+    title: 'Any Language. Any Framework.',
+    description:
+      'JavaScript, Python, SQL, Tailwind snippets, React hooks, reusable utilities — keep them all under one system.'
+  },
+  {
+    icon: TrendingUp,
+    iconBg: 'bg-red-100 dark:bg-red-900/30',
+    iconColor: 'text-red-600 dark:text-red-400',
+    title: 'Know What You Use Most',
+    description:
+      'Analytics show your most-used snippets, languages, and activity patterns — so you improve coding speed over time.'
+  },
+  {
+    icon: Lock,
+    iconBg: 'bg-teal-100 dark:bg-teal-900/30',
+    iconColor: 'text-teal-600 dark:text-teal-400',
+    title: 'Private By Default',
+    description:
+      'Encrypted storage, row-level security, device-synced access — your snippets are yours only.'
+  }
 ];
+
 
 export function Features() {
     return (
@@ -59,10 +66,10 @@ export function Features() {
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                      The Ultimate Code Snippet Manager to Organize & Search Your Code
+                      Find your past code in seconds — and reuse it instantly
                     </h2>
                     <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                      Built by developer, for developers. SnipRepo offers powerful features to save, organize, and find your code snippets faster and smarter than ever.
+                      Your best code shouldn’t live inside old repos, Slack history, or forgotten projects. Save it once — and reuse it forever.
                     </p>
                 </div>
                 <Swiper

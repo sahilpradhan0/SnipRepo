@@ -7,36 +7,37 @@ import 'swiper/css/pagination';
 
 const problems = [
     {
-        title: "Hard to Find Old Code",
-        desc: "Your best snippets get buried in old projects, VSCode history, GitHub repos, or random folders — impossible to find when you need them.",
+        title: "You waste time hunting old code",
+        desc: "Each week you spend 20–40 minutes searching old repos, chats, VSCode history, or rewriting code you already solved before.",
         icon: <Search className="w-8 h-8 text-red-600" />,
     },
     {
-        title: "Snippets Scattered Everywhere",
-        desc: "Code lives across notes, chats, Notion pages, StackOverflow drafts, and screenshots. There’s no single place to store and organize it.",
+        title: "Your code is scattered everywhere",
+        desc: "Bits live in Notion, screenshots, WhatsApp messages, past projects, StackOverflow drafts—none of it searchable when needed.",
         icon: <Layers className="w-8 h-8 text-red-600" />,
     },
     {
-        title: "Rewriting the Same Code Repeatedly",
-        desc: "Without a proper code snippet manager, you end up rewriting the same functions, regex patterns, hooks, and utilities over and over.",
+        title: "You rewrite the same code repeatedly",
+        desc: "Regex patterns, utility hooks, auth flows, tailwind configs… you already wrote them once, but you end up rewriting from scratch.",
         icon: <Repeat className="w-8 h-8 text-red-600" />,
     },
     {
-        title: "Poor or No Search",
-        desc: "Searching through files or projects is slow and unreliable. Traditional editors don’t help you instantly search your saved code snippets.",
+        title: "Search is the real bottleneck",
+        desc: "Traditional file search can’t find inside comments, variations, or context—so finding working snippets is trial and error.",
         icon: <Slash className="w-8 h-8 text-red-600" />,
     },
     {
-        title: "No Tags or Organization System",
-        desc: "Folders, bookmarks, and random notes fall apart at scale. Developers need structured tags and categories to keep snippets organized.",
+        title: "Nothing stays organized over time",
+        desc: "Bookmarks, random folders, and note apps fall apart once you hit 50+ snippets, making everything harder to retrieve.",
         icon: <Tag className="w-8 h-8 text-red-600" />,
     },
     {
-        title: "Code Lost Between Devices",
-        desc: "Snippets saved on one machine never sync properly. Switching between laptop, work machine, and desktop leads to missing code.",
+        title: "Your snippets are stuck on one machine",
+        desc: "Laptop vs Work Machine vs Office PC = different code copies. Switching devices means losing half your saved knowledge.",
         icon: <Cloud className="w-8 h-8 text-red-600" />,
     },
 ];
+
 
 export function Problem() {
     return (
@@ -44,10 +45,11 @@ export function Problem() {
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                        Why Developers Lose Code Snippets — And How SnipRepo Fixes It
+                        Developers lose hours every week searching for old code
                     </h2>
                     <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                        Developers waste hours searching for old code snippets scattered across folders, notes, chats, and forgotten projects. SnipRepo keeps your snippets organized, searchable, and always within reach.
+                        Every developer has code they've already solved that gets lost inside old projects, chats, and local folders — so they rewrite it again.
+                        SnipRepo makes your past work instantly searchable and reusable.
                     </p>
 
                 </div>
