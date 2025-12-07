@@ -1,8 +1,7 @@
-
 {
   "rewrites": [
     {
-      "source": "/((?!.*\\.(xml|txt|js|css|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$).*)",
+      "source": "/:path((?!.*\\..*).*)",
       "destination": "/"
     }
   ],
@@ -35,5 +34,4 @@
       ]
     }
   ]
-
 }
