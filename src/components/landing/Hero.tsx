@@ -30,7 +30,7 @@ export function Hero({ onGetStarted }: HeroProps) {
 
 
                         {/* Micro-benefits (short) */}
-                        <div className="flex flex-wrap gap-1 mb-6 dark:text-gray-300">
+                        <div className="flex flex-wrap gap-3 mb-6 dark:text-gray-300">
                             <span className="inline-flex items-center gap-2 bg-white dark:bg-gray-800 px-3 py-2 rounded-lg shadow-sm text-sm font-medium">
                                 <Star className="w-4 h-4 text-yellow-500" /> Find any snippet in under 1 second
                             </span>

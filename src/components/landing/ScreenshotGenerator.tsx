@@ -12,7 +12,7 @@ import html from "prettier/plugins/html";
 import css from "prettier/plugins/postcss";
 import markdown from "prettier/plugins/markdown";
 import typescript from "prettier/plugins/typescript";
-import {track} from '../../lib/api/PostHogAnalytics';
+import { track } from '../../lib/api/PostHogAnalytics';
 // --- Font Imports ---
 import "@fontsource/fira-code";
 import "@fontsource/jetbrains-mono";
@@ -367,7 +367,7 @@ export default function ScreenshotGenerator() {
                             <div className="h-1.5 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"></div>
                         )}
 
-                        <div className="relative text-xs sm:text-sm" style={previewContentStyles}>
+                        <div className="relative text-xs sm:text-sm mb-2" style={previewContentStyles}>
                             <SyntaxHighlighter
                                 language={language}
                                 style={okaidia}
@@ -381,7 +381,7 @@ export default function ScreenshotGenerator() {
 
                             {/* Watermark */}
                             {showWatermark && (
-                                <div className="absolute bottom-4 right-5 text-xs text-gray-400/70 select-none pointer-events-none">
+                                <div className="absolute bottom-0 right-1 sm:right-2 text-xs text-gray-400/70 select-none pointer-events-none">
                                     Made with SnipRepo 🔥
                                 </div>
                             )}
@@ -440,16 +440,16 @@ export default function ScreenshotGenerator() {
                             }}
                         />
                     </div>
-                    <div className="flex justify-between items-center mt-2">
+                    <div className="flex mt-2 mb-2">
                         <button onClick={formatCode} className="text-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-1 px-3 rounded-md transition-colors">
                             Format Code
                         </button>
-                        <div className="flex items-center justify-between gap-10 text-sm text-gray-500 dark:text-gray-400">
-                            <span>Watermark enabled</span>
-                            <button onClick={() => nav("/login")} className="text-blue-500 hover:underline font-semibold">
-                                Unlock Watermark-free Screenshots
-                            </button>
-                        </div>
+                    </div>
+                    <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                        <span>Watermark enabled</span>
+                        <button onClick={() => nav("/login")} className="text-blue-500 hover:underline font-semibold">
+                            Unlock Watermark-free Screenshots
+                        </button>
                     </div>
 
                 </div>
