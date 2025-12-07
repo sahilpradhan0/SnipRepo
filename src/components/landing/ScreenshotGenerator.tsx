@@ -371,9 +371,9 @@ export default function ScreenshotGenerator() {
                             <SyntaxHighlighter
                                 language={language}
                                 style={okaidia}
-                                showLineNumbers={true}
-                                wrapLongLines={true} // Use false to prevent wrapping inside the component, we handle it with CSS
-                                customStyle={{ margin: 0, padding: 0, backgroundColor: 'transparent', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', overflowX: 'hidden' }}
+                                showLineNumbers
+                                wrapLongLines={false}
+                                customStyle={{ margin: 0, marginBottom: 18, padding: 0, backgroundColor: 'transparent', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}
                                 codeTagProps={{ style: { fontFamily: font.family } }}
                             >
                                 {code}
@@ -381,11 +381,11 @@ export default function ScreenshotGenerator() {
 
                             {/* Watermark */}
                             {showWatermark && (
-                                <div className="absolute bottom-0 right-1 sm:right-2 text-xs text-gray-400/70 select-none pointer-events-none">
+                                <div className="absolute bottom-0 right-1 sm:right-2 text-xs text-gray-400/70 select-none pointer-events-none mt-1 mb-1">
                                     Made with SnipRepo 🔥
                                 </div>
                             )}
-                        </div>
+                        </div>   
                     </div>
                 </div>
             </div>
