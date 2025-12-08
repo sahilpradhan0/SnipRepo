@@ -39,6 +39,7 @@ const fonts = [
 ];
 
 const paddings = ['8', '16', '32', '48', '64'];
+const fontSizes = ['12', '14', '16', '18'];
 const shadows = {
     None: 'shadow-none',
     Small: 'shadow-md',
@@ -85,6 +86,7 @@ export default function ScreenshotGenerator() {
     const [language, setLanguage] = useState('javascript');
     const [theme, setTheme] = useState(themes[0]);
     const [font, setFont] = useState(fonts[0]);
+    const [fontSize, setFontSize] = useState(fontSizes[1]);
     const [padding, setPadding] = useState(paddings[1]);
     const [shadow, setShadow] = useState(shadows.Large);
     const [previewStyle, setPreviewStyle] = useState<'Window' | 'Card'>('Window');
@@ -92,7 +94,7 @@ export default function ScreenshotGenerator() {
     const [isDownloading, setIsDownloading] = useState(false);
     const [showWatermark, setShowWatermark] = useState(true);
     const [filename, setFilename] = useState('sniprepo-screenshot');
-    const [maxWidth, setMaxWidth] = useState('1024'); // Corresponds to max-w-5xl
+    const [maxWidth, setMaxWidth] = useState('860'); // Adjusted for better aspect ratio
     const [background, setBackground] = useState(Object.values(backgroundPresets)[3]);
 
     const previewRef = useRef<HTMLDivElement>(null);
@@ -111,42 +113,59 @@ export default function ScreenshotGenerator() {
     const handleDownload = async () => {
         if (!exportContainerRef.current || isDownloading) return;
         setIsDownloading(true);
-        try {
-            // Clone the node to modify it for export without affecting the on-screen view
-            const node = exportContainerRef.current.cloneNode(true) as HTMLElement;
-            node.style.width = 'auto';
-            node.style.display = 'inline-block';
-            // We need to append it to the body so that `html-to-image` can compute styles
-            document.body.appendChild(node);
 
-            // Find the <pre> tag and remove scrollbars for the export
+        try {
+            const node = exportContainerRef.current;
+
+            // Temporarily remove max-width constraint and force fixed layout
+            const originalStyle = node.style.cssText;
+            node.style.maxWidth = 'none';
+            node.style.width = 'fit-content';
+            node.style.minWidth = '800px'; // prevents it from being too narrow
+
+            // Force SyntaxHighlighter to respect font size + wrap lines
             const preElement = node.querySelector('pre');
             if (preElement) {
+                preElement.style.whiteSpace = 'pre-wrap';
+                preElement.style.wordBreak = 'break-word';
                 preElement.style.overflow = 'visible';
-                preElement.style.whiteSpace = 'pre'; // Ensure long lines don't wrap
+                preElement.style.fontSize = `${fontSize}px !important`;
             }
 
-            // Also remove overflow-hidden from the window container
-            const windowElement = node.querySelector('.overflow-hidden') as HTMLElement;
-            if (windowElement) {
-                windowElement.style.overflow = 'visible';
+            // Force code tag to keep exact font size
+            const codeElement = node.querySelector('code');
+            if (codeElement) {
+                codeElement.style.fontSize = `${fontSize}px !important`;
+                codeElement.style.lineHeight = '1.5';
             }
+
+            // Wait for layout to settle
+            await new Promise(resolve => setTimeout(resolve, 100));
 
             const dataUrl = await toPng(node, {
                 cacheBust: true,
                 pixelRatio: 3,
+                width: node.scrollWidth,
+                height: node.scrollHeight,
+                style: {
+                    transform: 'scale(1)',
+                    transformOrigin: 'top left',
+                },
             });
-            document.body.removeChild(node); // Clean up the cloned node
+
+            // Restore original styles
+            node.style.cssText = originalStyle;
 
             const link = document.createElement('a');
-            link.download = `${filename || 'sniprepo-screenshot'}.png`;
+            link.download = `${filename || 'sniprepo'}.png`;
             link.href = dataUrl;
             link.click();
+
             track("Screenshot Downloaded", { filename: link.download });
             setShowAfterDownloadModal(true);
         } catch (err) {
-            console.error('Oops, something went wrong!', err);
-            toast.error('Oops, something went wrong while creating the image.');
+            console.error('Download failed:', err);
+            toast.error('Failed to generate image');
         } finally {
             setIsDownloading(false);
         }
@@ -367,14 +386,20 @@ export default function ScreenshotGenerator() {
                             <div className="h-1.5 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500"></div>
                         )}
 
-                        <div className="relative text-xs sm:text-sm mb-2" style={previewContentStyles}>
+                        <div className="relative mb-2" style={previewContentStyles}>
                             <SyntaxHighlighter
                                 language={language}
                                 style={okaidia}
                                 showLineNumbers
-                                wrapLongLines={false}
-                                customStyle={{ margin: 0, marginBottom: 18, padding: 0, backgroundColor: 'transparent', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}
-                                codeTagProps={{ style: { fontFamily: font.family } }}
+                                wrapLongLines={true}          // ← THIS LINE
+                                PreTag="div"
+                                customStyle={{
+                                    margin: 0,
+                                    padding: padding + 'px',
+                                    backgroundColor: 'transparent',
+                                    fontSize: `${fontSize}px`,
+                                    lineHeight: '1.6',
+                                }}
                             >
                                 {code}
                             </SyntaxHighlighter>
@@ -385,7 +410,7 @@ export default function ScreenshotGenerator() {
                                     Made with SnipRepo 🔥
                                 </div>
                             )}
-                        </div>   
+                        </div>
                     </div>
                 </div>
             </div>
@@ -420,7 +445,7 @@ export default function ScreenshotGenerator() {
                     /> */}
                     <div
                         className="relative font-mono text-sm border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500"
-                        style={{ height: 380 }}
+                        style={{ height: 420 }}
                     >
                         <Editor
                             value={code}
@@ -429,7 +454,6 @@ export default function ScreenshotGenerator() {
                             language={getMonacoLanguage(language)}
                             theme="vs-dark"
                             options={{
-                                fontSize: 12,
                                 wordWrap: 'on',
                                 scrollBeyondLastLine: false,
                                 automaticLayout: true,
@@ -481,7 +505,7 @@ export default function ScreenshotGenerator() {
                         </div>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid gap-4">
                         {/* Padding Control */}
                         <div>
                             <label className="block font-semibold mb-1">Padding</label>
@@ -489,6 +513,17 @@ export default function ScreenshotGenerator() {
                                 {paddings.map(p => (
                                     <button key={p} onClick={() => setPadding(p)} className={`px-3 py-1 rounded ${padding === p ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 dark:text-gray-300'}`}>
                                         {p}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                        {/* Font Size Control */}
+                        <div>
+                            <label className="block font-semibold mb-1">Font Size</label>
+                            <div className="flex gap-2">
+                                {fontSizes.map(p => (
+                                    <button key={p} onClick={() => setFontSize(p)} className={`px-3 py-1 rounded ${fontSize === p ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 dark:text-gray-300'}`}>
+                                        {p}px
                                     </button>
                                 ))}
                             </div>
@@ -571,6 +606,6 @@ export default function ScreenshotGenerator() {
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 }
