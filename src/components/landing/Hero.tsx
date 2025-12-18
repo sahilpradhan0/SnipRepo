@@ -20,12 +20,16 @@ export function Hero({ onGetStarted }: HeroProps) {
 
                         {/* Pain-first headline */}
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
-                            Stop Rewriting code you already wrote
+                            Stop Rewriting Code You’ve Already Written
+
                         </h1>
 
                         {/* Strong subheadline that explains the pain + outcome */}
                         <p className="text-md sm:text-lg text-gray-600 dark:text-gray-400 mb-4 leading-relaxed max-w-2xl">
                             You already wrote that code once. SnipRepo remembers your previous snippets so you never waste time searching through old repos, chats, or projects again.
+                        </p>
+                        <p className="text-sm font-medium text-green-600 dark:text-green-400 mb-4">
+                            Save 1 snippet instantly — no account, no friction.
                         </p>
 
 
@@ -49,10 +53,10 @@ export function Hero({ onGetStarted }: HeroProps) {
                         <div className="flex flex-col gap-3 max-w-sm mt-6">
 
                             <button
-                                onClick={onGetStarted}
+                                onClick={() => nav("/create-snippet")}
                                 className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition text-lg shadow-lg shadow-blue-600/30 w-full"
                             >
-                                Save your first snippet in seconds →
+                                Save your first snippet — No Signup
                             </button>
 
                             <button

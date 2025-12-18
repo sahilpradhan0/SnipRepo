@@ -15,7 +15,7 @@ export function CTA() {
                 It takes less than 10 seconds.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto w-full">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto w-full px-2">
                 <button
                     onClick={() => navigate('/create-snippet')}
                     className="px-8 py-4 bg-white text-blue-700 font-semibold rounded-lg shadow-md hover:shadow-lg hover:bg-gray-100 transition flex items-center justify-center gap-2"

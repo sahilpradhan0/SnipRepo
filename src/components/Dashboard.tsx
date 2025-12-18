@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
+import { supabase } from '../lib/supabase';
 import { AlertTriangle, Trash2, ArrowRight, X, Download } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { snippetApi, SnippetWithTags, } from '../lib/api/snippets';
@@ -17,7 +18,7 @@ import { SearchBar } from './SearchBar';
 import { SnippetGrid } from './SnippetGrid';
 import { Link } from 'react-router-dom';
 import { ImportExport } from './snippets/ImportExport';
-import {track} from '../lib/api/PostHogAnalytics';
+import { track } from '../lib/api/PostHogAnalytics';
 
 export function Dashboard() {
   const { user, signOut } = useAuth();
@@ -47,22 +48,14 @@ export function Dashboard() {
   const [isSelectionModeActive, setIsSelectionModeActive] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    loadData();
-    track('dashboard_loaded');
-  }, []);
-
-  useEffect(() => {
-    filterSnippets();
-  }, [snippets, searchQuery, selectedFolder, selectedLanguage, selectedTag, showFavoritesOnly, sidebarSearchTerm, sortByName, sortByDate]);
-
   const loadData = async () => {
     setLoading(true);
+    if (!user) return; // Guard against running without a user
     try {
       const [snippetsData, foldersData, tagsData] = await Promise.all([
-        snippetApi.getAll(),
-        folderApi.getAll(),
-        tagApi.getAll(),
+        snippetApi.getAll(user.id),
+        folderApi.getAll(user.id),
+        tagApi.getAll(user.id),
       ]);
       setSnippets(snippetsData);
       setFolders(foldersData);
@@ -73,6 +66,59 @@ export function Dashboard() {
       setLoading(false);
     }
   };
+
+
+  useEffect(() => {
+    if (!user) return;
+
+    loadData(); // Initial load
+
+    // Set up the real-time subscription
+    const channel = supabase
+      .channel('dashboard-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'snippets',
+          filter: `user_id=eq.${user.id}` // Only listen to THIS user's changes
+        },
+        (payload) => {
+          console.log('Realtime change detected:', payload.eventType);
+          loadData(); // Refresh everything
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user]);// <-- Key change: Re-run this effect when the user object changes.
+
+  // Effect to listen for snippet migration and show a fallback toast.
+  useEffect(() => {
+    const handleSnippetMigration = () => {
+      console.log('Snippet migration event received!');
+      // Give the real-time subscription a moment to catch up.
+      // If it works, the UI will update, and this toast is just a backup.
+      const timer = setTimeout(() => {
+        toast("If you don't see your new snippet. A quick refresh might be needed.", {
+          icon: '✨',
+          duration: 6000 // Show for a bit longer
+        });
+      }, 2500); // 2.5-second delay
+    };
+
+    window.addEventListener('snippet-migrated', handleSnippetMigration);
+
+    return () => window.removeEventListener('snippet-migrated', handleSnippetMigration);
+  }, []); // Run only once on component mount
+
+  useEffect(() => {
+    filterSnippets();
+  }, [snippets, searchQuery, selectedFolder, selectedLanguage, selectedTag, showFavoritesOnly, sidebarSearchTerm, sortByName, sortByDate]);
+
 
   const filterSnippets = () => {
     let filtered = [...snippets];
@@ -320,6 +366,7 @@ export function Dashboard() {
             onShowFolderManager={() => setShowFolderManager(true)}
             onShowTagManager={() => setShowTagManager(true)}
             searchTerm={sidebarSearchTerm}
+            snippetCount={snippets.length}
             onSearchTermChange={setSidebarSearchTerm}
             sortByName={sortByName}
             sortByDate={sortByDate}

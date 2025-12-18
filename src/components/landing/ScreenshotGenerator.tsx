@@ -115,15 +115,16 @@ export default function ScreenshotGenerator() {
         setIsDownloading(true);
 
         try {
-            const node = exportContainerRef.current;
+            const node = exportContainerRef.current.cloneNode(true) as HTMLElement;
+            document.body.appendChild(node);
 
             // Temporarily remove max-width constraint and force fixed layout
-            const originalStyle = node.style.cssText;
             node.style.maxWidth = 'none';
             node.style.width = 'fit-content';
             node.style.minWidth = '800px'; // prevents it from being too narrow
 
             // Force SyntaxHighlighter to respect font size + wrap lines
+            // This is the key part for wrapping
             const preElement = node.querySelector('pre');
             if (preElement) {
                 preElement.style.whiteSpace = 'pre-wrap';
@@ -140,21 +141,18 @@ export default function ScreenshotGenerator() {
             }
 
             // Wait for layout to settle
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 50));
 
             const dataUrl = await toPng(node, {
                 cacheBust: true,
                 pixelRatio: 3,
                 width: node.scrollWidth,
                 height: node.scrollHeight,
-                style: {
-                    transform: 'scale(1)',
-                    transformOrigin: 'top left',
-                },
             });
 
             // Restore original styles
-            node.style.cssText = originalStyle;
+            document.body.removeChild(node);
+
 
             const link = document.createElement('a');
             link.download = `${filename || 'sniprepo'}.png`;
@@ -173,40 +171,68 @@ export default function ScreenshotGenerator() {
 
     const handleCopyImage = async () => {
         if (!exportContainerRef.current) return;
+
         try {
             const node = exportContainerRef.current.cloneNode(true) as HTMLElement;
-            node.style.width = 'auto';
-            node.style.display = 'inline-block';
             document.body.appendChild(node);
 
-            const preElement = node.querySelector('pre');
+            // Reset layout restrictions for safe rendering
+            node.style.width = 'fit-content';
+            node.style.maxWidth = 'none';
+            node.style.minWidth = '800px';
+            node.style.overflow = 'visible';
+            node.style.display = 'inline-block';
+
+            // Apply global padding (prevents text touching edge)
+            node.style.padding = '20px';
+
+            const preElement = node.querySelector('pre') as HTMLElement;
+            const codeElement = node.querySelector('code') as HTMLElement;
+
             if (preElement) {
-                preElement.style.overflow = 'visible';
-                preElement.style.whiteSpace = 'pre';
+                preElement.style.whiteSpace = 'pre-wrap'; // wraps lines
+                preElement.style.wordBreak = 'break-word';
+                preElement.style.overflow = 'visible'; // no scrollbars
+                preElement.style.display = 'block';
+                preElement.style.width = 'fit-content';
+                preElement.style.maxWidth = 'none';
+                preElement.style.paddingRight = '20px';
+                preElement.style.fontSize = `${fontSize}px`;
+                preElement.style.lineHeight = '1.6';
             }
 
-            // Also remove overflow-hidden from the window container
-            const windowElement = node.querySelector('.overflow-hidden') as HTMLElement;
-            if (windowElement) {
-                windowElement.style.overflow = 'visible';
+            if (codeElement) {
+                codeElement.style.whiteSpace = 'pre-wrap';
+                codeElement.style.wordBreak = 'break-word';
+                codeElement.style.fontSize = `${fontSize}px`;
+                codeElement.style.lineHeight = '1.6';
             }
+
+            // Wait for layout to update
+            await new Promise(resolve => setTimeout(resolve, 80));
 
             const blob = await toBlob(node, {
                 cacheBust: true,
                 pixelRatio: 3,
+                width: node.scrollWidth,
+                height: node.scrollHeight,
             });
-            document.body.removeChild(node);
+
+            node.remove();
 
             if (blob) {
-                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                await navigator.clipboard.write([
+                    new ClipboardItem({ 'image/png': blob })
+                ]);
                 track("Screenshot Copied to Clipboard");
-                // toast.success('Image copied to clipboard!');
             }
+
         } catch (err) {
             console.error('Failed to copy image:', err);
             toast.error('Failed to copy image. Your browser might not support this feature.');
         }
     };
+
 
     const handleShare = async (platform: 'x' | 'linkedin') => {
         // First, copy the image to the clipboard

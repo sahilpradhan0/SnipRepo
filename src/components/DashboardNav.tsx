@@ -6,6 +6,7 @@ import { DashboardPricing } from './DashboardPricing';
 import { snippetApi } from '../lib/api/snippets';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 interface DashboardNavProps {
     userEmail: string | undefined;
     onSignOut: () => void;
@@ -36,6 +37,7 @@ export function DashboardNav({
     const [showPricing, setShowPricing] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [snippetCount, setSnippetCount] = useState<number | null>(null);
+    const { user } = useAuth();
     const nav = useNavigate();
     useEffect(() => {
         async function load() {
@@ -96,10 +98,10 @@ export function DashboardNav({
                                 </p>
                             </div>
                             <div className="flex gap-2  sm:justify-end sm:items-end">
-                                <span className="capitalize text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-2 py-0.5 rounded-full">
+                                {user && <span className="capitalize text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-2 py-0.5 rounded-full">
                                     {currentPlan}
-                                </span>
-                                {isFreeUser && snippetCount !== null && (
+                                </span>}
+                                {user && isFreeUser && snippetCount !== null && (
                                     <span className={`flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-full ${badgeColors}`}>
                                         <Database className="w-3 h-3" />
                                         {snippetCount} / {freePlanLimit}
@@ -111,30 +113,30 @@ export function DashboardNav({
                     <div className="flex items-center">
                         {/* Desktop Menu */}
                         <div className="hidden md:flex items-center gap-2">
-                            <div className="relative group">
+                            {user && <div className="relative group">
                                 <button onClick={() => setShowPricing(true)} className="flex items-center gap-2 p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition">
                                     <Gem className="w-5 h-5 text-blue-500" />
                                 </button>
                                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">Upgrade Plan</span>
-                            </div>
-                            <div className="relative group">
+                            </div>}
+                            {user && <div className="relative group">
                                 <button onClick={onShowImportExport} disabled={hideImportExport} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
                                     <Upload className="w-5 h-5" />
                                 </button>
                                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">Import/Export</span>
-                            </div>
-                            <div className="relative group">
+                            </div>}
+                            {user && <div className="relative group">
                                 <button onClick={() => nav("/dashboard/analytics")} disabled={isFreeUser} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
                                     <BarChart3 className="w-5 h-5" />
                                 </button>
                                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">{isFreeUser ? proFeatureTooltip : 'Analytics'}</span>
-                            </div>
-                            <div className="relative group">
+                            </div>}
+                            {user && <div className="relative group">
                                 <button onClick={onShowKeyboardShortcuts} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition">
                                     <Keyboard className="w-5 h-5" />
                                 </button>
                                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-sm rounded py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">Keyboard Shortcuts</span>
-                            </div>
+                            </div>}
 
                             <button
                                 onClick={onToggleTheme}
@@ -165,20 +167,20 @@ export function DashboardNav({
                 {isMenuOpen && (
                     <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            <button onClick={() => { setShowPricing(true); setIsMenuOpen(false); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            {user && <button onClick={() => { setShowPricing(true); setIsMenuOpen(false); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <Gem className="w-5 h-5 text-blue-500" /> Upgrade Plan
-                            </button>
-                            <button onClick={() => { onShowImportExport(); setIsMenuOpen(false); }} disabled={hideImportExport} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                            </button>}
+                            {user && <button onClick={() => { onShowImportExport(); setIsMenuOpen(false); }} disabled={hideImportExport} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <Upload className="w-5 h-5" /> Import/Export
-                            </button>
+                            </button>}
 
                             {/* )} */}
-                            <button onClick={() => { onShowAnalytics(); setIsMenuOpen(false); }} disabled={isFreeUser} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                            {user && <button onClick={() => { onShowAnalytics(); setIsMenuOpen(false); }} disabled={isFreeUser} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <BarChart3 className="w-5 h-5" /> Analytics
-                            </button>
-                            <button onClick={() => { onShowKeyboardShortcuts(); setIsMenuOpen(false); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            </button>}
+                            {user && <button onClick={() => { onShowKeyboardShortcuts(); setIsMenuOpen(false); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <Keyboard className="w-5 h-5" /> Keyboard Shortcuts
-                            </button>
+                            </button>}
                             <div className="flex items-center justify-between px-3 py-2">
                                 <div className='flex gap-3 items-center'>
                                     <Palette className="w-5 h-5 text-gray-700 dark:text-gray-300" />

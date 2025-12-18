@@ -30,6 +30,7 @@ import SnipRepoVsGist from './components/landing/seopages/SnipRepoVsGist';
 import SnipRepoVsNotion from './components/landing/seopages/SnipRepoVsNotion';
 import CodeSnippetManagement from './components/landing/seopages/CodeSnippetManagement';
 import ScreenshotGeneratorPage from './components/landing/seopages/ScreenshotGeneratorPage';
+import CreateSnippetForm from './components/snippets/CreateSnippetForm';
 
 function AppContent() {
   const { user, loading, isRecoveringPassword } = useAuth();
@@ -76,6 +77,7 @@ function AppContent() {
       <Route path="/sniprepo-vs-notion" element={<SnipRepoVsNotion />} />
       <Route path="/code-snippet-management" element={<CodeSnippetManagement />} />
       <Route path="/screenshot" element={<ScreenshotGeneratorPage />} />
+      <Route path="/create-snippet" element={<CreateSnippetForm />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

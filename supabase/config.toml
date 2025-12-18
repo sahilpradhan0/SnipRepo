@@ -366,3 +366,25 @@ entrypoint = "./functions/format-python/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
 # static_files = [ "./functions/format-python/*.html" ]
+
+[functions.create-temp-token]
+enabled = true
+verify_jwt = true
+import_map = "./functions/create-temp-token/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/create-temp-token/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/create-temp-token/*.html" ]
+
+[functions.migrate-guest-snippets]
+enabled = true
+verify_jwt = true
+import_map = "./functions/migrate-guest-snippets/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/migrate-guest-snippets/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/migrate-guest-snippets/*.html" ]

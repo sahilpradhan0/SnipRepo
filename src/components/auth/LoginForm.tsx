@@ -62,8 +62,7 @@ export function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-transparent pr-4 py-3 rounded-r-lg border-gray-300 dark:border-gray-600 focus:outline-none autofill:[-webkit-box-shadow:0_0_0_1000px_#1f2937_inset] dark:autofill:[-webkit-box-shadow:0_0_0_1000px_#1f2937_inset] autofill:[-webkit-text-fill-color:#fff] dark:autofill:[-webkit-text-fill-color:#fff]"
-
+                className="w-full bg-transparent pr-4 py-3 rounded-r-lg border-gray-300 dark:border-gray-600 focus:outline-none autofill:[-webkit-box-shadow:0_0_0_1000px_white_inset] autofill:[-webkit-text-fill-color:black] dark:autofill:[-webkit-box-shadow:0_0_0_1000px_#1f2937_inset] dark:autofill:[-webkit-text-fill-color:white]"
                 placeholder="you@example.com"
               />
             </div>
@@ -82,7 +81,7 @@ export function LoginForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full bg-transparent focus:outline-none autofill:[-webkit-box-shadow:0_0_0_1000px_#1f2937_inset] dark:autofill:[-webkit-box-shadow:0_0_0_1000px_#1f2937_inset] autofill:[-webkit-text-fill-color:#fff] dark:autofill:[-webkit-text-fill-color:#fff]"
+                  className="w-full bg-transparent focus:outline-none autofill:[-webkit-box-shadow:0_0_0_1000px_white_inset] autofill:[-webkit-text-fill-color:black] dark:autofill:[-webkit-box-shadow:0_0_0_1000px_#1f2937_inset] dark:autofill:[-webkit-text-fill-color:white]"
                   placeholder="At least 8 characters"
                 />
               </div>
