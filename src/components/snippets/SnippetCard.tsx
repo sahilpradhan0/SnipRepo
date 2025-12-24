@@ -1,4 +1,4 @@
-import { Star, Trash2, Edit, Copy, Check, Folder, Tag, Power } from 'lucide-react';
+import { Star, Trash2, Edit, Copy, Check, Folder, Tag, Power, Image } from 'lucide-react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -48,6 +48,11 @@ export function SnippetCard({ snippet, onEdit, onDelete, onToggleFavorite, isSel
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
     onToggleFavorite(snippet.id, !snippet.is_favorite);
+  };
+
+  const handleScreenshot = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    nav('/screenshot', { state: { code: snippet.code } });
   };
 
   return (
@@ -148,6 +153,12 @@ export function SnippetCard({ snippet, onEdit, onDelete, onToggleFavorite, isSel
                 <Edit className="w-4 h-4 text-gray-400" />
               </button>
               <span className="absolute top-full left-0 mt-2 w-max max-w-xs bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">Edit snippet</span>
+            </div>
+            <div className="relative group">
+              <button onClick={handleScreenshot} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition">
+                <Image className="w-4 h-4 text-gray-400" />
+              </button>
+              <span className="absolute top-full left-0 mt-2 w-max max-w-xs bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-800 text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">Create screenshot</span>
             </div>
             {/* <button
               onClick={handleDelete}

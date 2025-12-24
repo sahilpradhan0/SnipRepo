@@ -31,6 +31,12 @@ import SnipRepoVsNotion from './components/landing/seopages/SnipRepoVsNotion';
 import CodeSnippetManagement from './components/landing/seopages/CodeSnippetManagement';
 import ScreenshotGeneratorPage from './components/landing/seopages/ScreenshotGeneratorPage';
 import CreateSnippetForm from './components/snippets/CreateSnippetForm';
+import CodeFormatter from './components/landing/CodeFormatter';
+import { OnlineCodeFormatter } from './components/landing/seopages/OnlineCodeFormatter';
+import { OnlineCodeSnippetOrganizer } from './components/landing/seopages/OnlineCodeSnippetOrganizer';
+import { SaveCodeSnippetsOnline } from './components/landing/seopages/SaveCodeSnippetsOnline';
+import { OnlineCodeScreenshot } from './components/landing/seopages/OnlineCodeScreenshot';
+import { CodeToImageConverter } from './components/landing/seopages/CodeToImageConverter';
 
 function AppContent() {
   const { user, loading, isRecoveringPassword } = useAuth();
@@ -78,6 +84,12 @@ function AppContent() {
       <Route path="/code-snippet-management" element={<CodeSnippetManagement />} />
       <Route path="/screenshot" element={<ScreenshotGeneratorPage />} />
       <Route path="/create-snippet" element={<CreateSnippetForm />} />
+      <Route path="/free-code-formatter" element={<CodeFormatter />} />
+      <Route path="/online-code-formatter" element={<OnlineCodeFormatter />} />
+      <Route path="/online-code-snippet-organizer" element={<OnlineCodeSnippetOrganizer />} />
+      <Route path="/save-code-snippets-online" element={<SaveCodeSnippetsOnline />} />
+      <Route path="/online-code-screenshot" element={<OnlineCodeScreenshot />} />
+      <Route path="/code-to-image-converter" element={<CodeToImageConverter />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, FormEvent, KeyboardEvent } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { X, Save, Sparkles, Plus, FolderPlus, ArrowLeft } from 'lucide-react';
 import Editor from '@monaco-editor/react';
 
@@ -35,15 +35,21 @@ export function CreateSnippetForm({ onClose }) {
     const { user } = useAuth();
     const { id: snippetId } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const location = useLocation();
     const isProUser = user?.app_metadata?.is_pro ?? false;
     const proFeatureTooltip = 'Upgrade to Pro to access AI-powered features';
     const isEditing = !!snippetId;
 
+    const incomingState = location.state as { code?: string; language?: string; title?: string } | null;
+    const initialLanguage = incomingState?.language
+        ? LANGUAGES.find(l => l.toLowerCase() === incomingState.language?.toLowerCase()) || 'JavaScript'
+        : 'JavaScript';
+
     // State
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(incomingState?.title || '');
     const [description, setDescription] = useState('');
-    const [code, setCode] = useState('');
-    const [language, setLanguage] = useState('JavaScript');
+    const [code, setCode] = useState(incomingState?.code || '');
+    const [language, setLanguage] = useState(initialLanguage);
     const [output, setOutput] = useState('');
     const [explanation, setExplanation] = useState('');
     const [folderId, setFolderId] = useState<string>('');
@@ -281,8 +287,7 @@ export function CreateSnippetForm({ onClose }) {
                     />
                 )}
 
-                <div
-                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full mx-auto flex flex-col">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full mx-auto flex flex-col">
                     <div className="flex-shrink-0 flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-4">
                             <button onClick={() => navigate("/")} className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition">

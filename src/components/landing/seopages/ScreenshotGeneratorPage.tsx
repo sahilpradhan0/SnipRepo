@@ -42,9 +42,9 @@ export default function ScreenshotGeneratorPage() {
   return (
     <LandingLayout>
       <Helmet>
-        <title>Code Snippet Screenshot Generator — Create & Share Beautiful Code Images</title>
-        <meta property="og:title" content="Code Snippet Screenshot Generator — SnipRepo" />
-        <meta property="og:description" content="Create beautiful, share-worthy screenshots of your code snippets instantly — no signup required." />
+        <title>Free Code Snippet Screenshot Generator — Create & Share Beautiful Code Images</title>
+        <meta property="og:title" content="Free Code Snippet Screenshot Generator — SnipRepo" />
+        <meta property="og:description" content="Create beautiful, share-worthy screenshots of your code snippets instantly for free — no signup required." />
         <meta property="og:url" content="https://sniprepo.com/screenshot" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -75,7 +75,7 @@ export default function ScreenshotGeneratorPage() {
       {/* HERO */}
       <section className="py-20 text-center px-6 mt-20">
         <h1 className="text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-          Create Beautiful Code Screenshots in Seconds
+          Create Beautiful Code Screenshots in Seconds for free
         </h1>
         <h2 className="text-xl max-w-2xl mx-auto mb-2 text-gray-700 dark:text-gray-300">
           Paste your code → choose a theme → download instantly

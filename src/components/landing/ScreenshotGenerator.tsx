@@ -28,7 +28,7 @@ const themes = [
     { name: 'GitHub Light', bg: 'bg-white' },
 ];
 import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PostDownloadModal from './PostDownloadModal';
 
 const fonts = [
@@ -81,8 +81,11 @@ const detectLanguage = (code: string) => {
 
 // --- Main Component ---
 export default function ScreenshotGenerator() {
+    const location = useLocation();
+    const initialCode = location.state?.code || `function hello() {\n  console.log("Hello, SnipRepo! 🔥");\n}`;
+
     // State Management
-    const [code, setCode] = useState(`function hello() {\n  console.log("Hello, SnipRepo! 🔥");\n}`);
+    const [code, setCode] = useState(initialCode);
     const [language, setLanguage] = useState('javascript');
     const [theme, setTheme] = useState(themes[0]);
     const [font, setFont] = useState(fonts[0]);
