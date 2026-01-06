@@ -6,13 +6,13 @@ type FolderInsert = Database['public']['Tables']['folders']['Insert'];
 type FolderUpdate = Database['public']['Tables']['folders']['Update'];
 
 export const folderApi = {
-  async getAll() {
+  async getAll(userId: string) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated.");
     const { data, error } = await supabase
       .from('folders')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .order('name');
 
     if (error) throw error;

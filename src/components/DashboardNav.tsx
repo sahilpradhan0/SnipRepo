@@ -41,7 +41,7 @@ export function DashboardNav({
     const nav = useNavigate();
     useEffect(() => {
         async function load() {
-            const count = await getCount();
+            const count = await getCount(user?.id);
             setSnippetCount(count);
         }
 

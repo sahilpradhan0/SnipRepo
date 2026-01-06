@@ -47,15 +47,16 @@ export function Dashboard() {
   const [selectedSnippetIds, setSelectedSnippetIds] = useState<string[]>([]);
   const [isSelectionModeActive, setIsSelectionModeActive] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+console.log(user);
 
   const loadData = async () => {
     setLoading(true);
     if (!user) return; // Guard against running without a user
     try {
       const [snippetsData, foldersData, tagsData] = await Promise.all([
-        snippetApi.getAll(user.id),
-        folderApi.getAll(user.id),
-        tagApi.getAll(user.id),
+        snippetApi.getAll(user?.id),
+        folderApi.getAll(user?.id),
+        tagApi.getAll(user?.id),
       ]);
       setSnippets(snippetsData);
       setFolders(foldersData);

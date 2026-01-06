@@ -11,17 +11,18 @@ export interface SnippetWithTags extends Snippet {
 }
 
 export const snippetApi = {
-  async getCount() {
+  async getCount(userId: string) {
     const { count, error } = await supabase
       .from('snippets')
-      .select('*', { count: 'exact', head: true });
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', userId);
 
     if (error) {
       throw error;
     }
     return count ?? 0;
   },
-  async getAll() {
+  async getAll(userId: string) {
     const { data, error } = await supabase
       .from('snippets')
       .select(`
@@ -31,7 +32,8 @@ export const snippetApi = {
           tag:tags(id, name, color)
         )
       `)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .eq('user_id', userId);
 
     if (error) throw error;
 
