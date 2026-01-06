@@ -48,8 +48,8 @@ export function SnippetDetail({ snippet: initialSnippet, onClose, onEdit, onDele
       setLoading(true);
       Promise.all([
         snippetApi.getById(id),
-        folderApi.getAll(),
-        tagApi.getAll()
+        folderApi.getAll(user?.id),
+        tagApi.getAll(user?.id)
       ]).then(([snippet, foldersData, tagsData]) => {
         setCurrentSnippet(snippet);
         setFolders(foldersData);

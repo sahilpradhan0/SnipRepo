@@ -57,9 +57,9 @@ export function AllSnippetsPage() {
     setLoading(true);
     try {
       const [snippetsData, foldersData, tagsData] = await Promise.all([
-        snippetApi.getAll(),
-        folderApi.getAll(),
-        tagApi.getAll(),
+        snippetApi.getAll(user?.id),
+        folderApi.getAll(user?.id),
+        tagApi.getAll(user?.id),
       ]);
       setSnippets(snippetsData);
       setFolders(foldersData);

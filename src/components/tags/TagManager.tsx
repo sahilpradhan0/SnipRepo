@@ -38,7 +38,7 @@ export function TagManager({ onClose, onTagsUpdated }: TagManagerProps) {
 
   const loadTags = async () => {
     try {
-      const data = await tagApi.getAll();
+      const data = await tagApi.getAll(user?.id);
       setTags(data);
     } catch (err: any) {
       setError(err.message);

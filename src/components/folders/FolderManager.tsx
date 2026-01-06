@@ -37,7 +37,7 @@ export function FolderManager({ onClose }: FolderManagerProps) {
 
   const loadFolders = async () => {
     try {
-      const data = await folderApi.getAll();
+      const data = await folderApi.getAll(user?.id);
       setFolders(data);
     } catch (err: any) {
       setError(err.message);
