@@ -5,6 +5,19 @@
       "destination": "/"
     }
   ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sniprepo.com"
+        }
+      ],
+      "destination": "https://sniprepo.com/$1",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/sitemap.xml",

@@ -76,13 +76,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const { data: realSnippet, error: insertError } = await supabase
             .from("snippets")
             .insert({
-              user_id: session.user.id,
-              title: tempSnippet.title,
-              description: tempSnippet.description,
-              code: tempSnippet.code,
-              language: tempSnippet.language,
-              output: tempSnippet.output,
-              explanation: tempSnippet.explanation,
+              user_id: session?.user?.id,
+              title: tempSnippet?.title,
+              description: tempSnippet?.description,
+              code: tempSnippet?.code,
+              language: tempSnippet?.language,
+              output: tempSnippet?.output,
+              explanation: tempSnippet?.explanation,
             })
             .select()
             .single();

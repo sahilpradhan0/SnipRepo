@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Sparkles, Check } from "lucide-react";
 import LandingLayout from "../LandingLayout";
 import { Link } from "react-router-dom";
